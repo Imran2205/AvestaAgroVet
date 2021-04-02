@@ -1,0 +1,292 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<link rel="stylesheet" href="https://www.exontime.com/static/home/css/bootstrap.min.css">
+<style>
+	.clearfix:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
+
+	a {
+	  color: #5D6975;
+	  #text-decoration: underline;
+	}
+
+	body {
+	  position: relative;
+	  width: 21cm;
+	  height: 29.7cm;
+	  margin: 0 auto;
+	  color: #001028;
+	  background: #FFFFFF;
+	  font-family: Arial, sans-serif;
+	  font-size: 12px;
+	  font-family: Arial;
+	}
+
+	header {
+	  padding: 10px 0;
+	  margin-bottom: 30px;
+	}
+
+	#logo {
+	  text-align: center;
+	  margin-bottom: 10px;
+	}
+
+	#logo img {
+	  width: 200px;
+	}
+
+	h1 {
+	  border-top: 1px solid  #5D6975;
+	  border-bottom: 1px solid  #5D6975;
+	  color: #5D6975;
+	  font-size: 2.4em;
+	  line-height: 1.4em;
+	  font-weight: normal;
+	  text-align: center;
+	  margin: 0 0 20px 0;
+	  background: url($dimension_png);
+	}
+
+	#project {
+	  float: left;
+	}
+
+	#project span {
+	  color: #5D6975;
+	  text-align: right;
+	  width: 52px;
+	  margin-right: 10px;
+	  display: inline-block;
+	  font-size: 0.8em;
+	}
+
+	#company {
+	  float: right;
+	  text-align: right;
+	}
+
+	#project div,
+	#company div {
+	  white-space: nowrap;
+	}
+
+
+
+	#notices .notice {
+	  color: #5D6975;
+	  font-size: 1.2em;
+	}
+
+	footer {
+	  color: #5D6975;
+	  width: 100%;
+	  height: 30px;
+	  bottom: 0;
+	  border-top: 1px solid #C1CED9;
+	  padding: 8px 0;
+	  text-align: center;
+	  margin-top: 50px;
+	}
+</style>
+</head>
+
+<body>
+	<div>
+		<div style="margin-top: 50px; margin-bottom: 10px;">
+			<div style="text-align: center;">
+
+        		<div style="width: 300px; margin: 0 auto;">
+					<div style="float: left; margin-top: 0px;">
+						<img style="height: 40px; width: 40px;" src="$logo_png">
+					</div>
+     				<div>
+						<a style="color: black; font-size: 30px; font-weight: 500;">
+							AVESTA Agro Vet
+						</a>
+					</div>
+
+				</div>
+				<br>
+				<a style="font-size: 15px; font-weight: 500; color: black;">
+					Gawsepak Bhaban, 28/G/1 Toyenbee Circual Road,
+				</a>
+				<br>
+				<a style="font-size: 15px; font-weight: 500; color: black;">
+					Motijheel, Dhaka
+				</a>
+				<br>
+				<br>
+				<a style="color: black; font-size: 20px; font-weight: 500;">
+					INVOICE
+				</a>
+			</div>
+
+			<div style="margin-left: 15px; margin-right: 15px;">
+				<div style="text-align: left; float: left;">
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						Invoice No: $invoice_id
+					</a>
+					<br>
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						Name: $client
+					</a>
+					<br>
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						Address: $address
+					</a>
+					<br>
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						Zone: $zone
+					</a>
+				</div>
+				<div style="text-align: left; float: right;">
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						Salses By: $sales_by
+					</a>
+					<br>
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						Booking Date: $order_date
+					</a>
+					<br>
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						Delivery Date: $delivery_date
+					</a>
+					<br>
+					<br>
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						Previous Due: $due
+					</a>
+				</div>
+			</div>
+		</div>
+		<div style="margin-top: 150px;">
+			<table class="table">
+			  <thead class="thead-light">
+				<tr>
+				  <th scope="col">Serial No</th>
+				  <th scope="col">Product Name</th>
+				  <th scope="col">Unit Price</th>
+				  <th scope="col">Quantity</th>
+				  <th scope="col">Total</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr>
+				  <th scope="row">1</th>
+				  <td>$product_name</td>
+				  <td>$unit_price</td>
+				  <td>$quantity</td>
+				  <td>$item_total</td>
+				</tr>
+
+                <tr>
+				  <th scope="row"></th>
+				  <td></td>
+				  <td> </td>
+				  <td>Total Amount</td>
+				  <td>$sub_total</td>
+				</tr>
+			  </tbody>
+			</table>
+		</div>
+		<div>
+			<div style="float: left; width: 400px;">
+				<div style="margin-left: 180px; text-align: left;">
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						Discount $discount_percent %
+					</a>
+					<br>
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+
+					</a>
+					<br>
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						Sale Tax rate $tax_percent %
+					</a>
+					<br>
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+
+					</a>
+				</div>
+			</div>
+			<div style="float: right; width: 350px;">
+				<div style="float: left;">
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						Discount Amount
+					</a>
+					<br>
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						After Discount
+					</a>
+					<br>
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						Tax Amount
+					</a>
+					<br>
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						Net Amount
+					</a>
+				</div>
+				<div style="float: right; margin-right: 20px;">
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						$discount
+					</a>
+					<br>
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						$after_discount
+					</a>
+					<br>
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						$tax_amount
+					</a>
+					<br>
+					<a style="font-size: 15px; font-weight: 500; color: black;">
+						$total
+					</a>
+				</div>
+			</div>
+		</div>
+		<div style="margin-top: 120px;">
+		</div>
+		<hr>
+		<hr>
+		<div style="margin-left: 20px;">
+			<a style="font-size: 15px; font-weight: 500; color: black;">
+				In Word: $in_word  taka only
+			</a>
+		</div>
+		<div style="margin-top: 70px;">
+			<div style="float: left; width: 350px; text-align: center;">
+				<a style="font-size: 15px; font-weight: 500; color: black; text-decoration-line: overline;">
+					Customer's Signature
+				</a>
+			</div>
+			<div style="float: right; width: 350px;">
+				<div style="text-align: center;">
+					<a style="font-size: 15px; font-weight: 500; color: black;  text-decoration-line: overline;">
+						Authorized Signature
+					</a>
+				</div>
+			</div>
+		</div>
+		<div style="margin-top: 140px;">
+		</div>
+		<hr>
+		<div style="text-align: left;">
+			<a style="font-size: 15px; font-weight: 500; color: black;">
+				N.B: This is a computer generated document and is valid if not signed.
+			</a>
+		</div>
+	</div>
+
+
+	<script src="https://www.exontime.com/static/home/js/bootstrap.js"></script>
+</body>
+</html>
