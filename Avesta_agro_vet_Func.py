@@ -2929,7 +2929,7 @@ class SaleEntryUIClass(QMainWindow, entry_sale.Ui_MainWindow):
                         recipientNumber = recipientNumber[0]
                         or_id = self.save_data["invoice id"]
                         d_date = self.save_data["delivery date"]
-                        bill = '{:.2f}'.format(self.sub_total_amount)
+                        bill = '{:.2f}'.format(self.sub_total_amount - self.discount)
                         now = dt.now()
                         current_time = now.strftime("%H:%M:%S")
                         date_now = dt.today().strftime('%Y-%m-%d')
@@ -3210,7 +3210,7 @@ class SaleEntryUIClass(QMainWindow, entry_sale.Ui_MainWindow):
                     bottom = Template(self.bottom).safe_substitute(js_link=bootstrap_js_url)
                     html = top + self.table_top + self.tb_row + table_bottom + bottom
                     self.save_file(html)
-                    bal_a = bal_b + float(self.sub_total_amount)
+                    bal_a = bal_b + float(self.sub_total_amount) - self.discount - self.paid
                     db.child('customer').child(customerId).child('opening balance').set(bal_a)
                     self.refresh = False
                     try:
@@ -3218,7 +3218,7 @@ class SaleEntryUIClass(QMainWindow, entry_sale.Ui_MainWindow):
                         recipientNumber = list(recipientNumber)
                         recipientNumber = recipientNumber[0]
                         or_id = self.save_data["invoice id"]
-                        bill = '{:.2f}'.format(self.sub_total_amount)
+                        bill = '{:.2f}'.format(self.sub_total_amount - self.discount)
                         now = dt.now()
                         current_time = now.strftime("%H:%M:%S")
                         date_now = dt.today().strftime('%Y-%m-%d')
@@ -3567,6 +3567,8 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
         self.products_dict_final = {}
         self.old_product_dict = {}
         self.bef_new = 0
+        self.paid = 0.00
+        self.discount = 0.00
         self.sub_total_amount = 0.00
         self.save_location = ''
         self.entry_product_id_combo.currentTextChanged.connect(self.id_changed)
@@ -3675,14 +3677,66 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
                             </div>
                         </div>
                         <div style="margin-top: 140px;">
+
                         </div>
-                        <hr>
-                        <hr>
                         <div style="margin-left: 20px;">
                             <a style="font-size: 15px; font-weight: 500; color: black;">
                                 In Word: $in_word  taka only
                             </a>
-                        </div>"""
+                        </div>
+                        <hr>
+
+                        <div style="margin-top: 20px;">
+                            <div style="float: left; width: 400px;">
+
+                            </div>
+                            <div style="float: right; width: 350px;">
+                                <div style="float: left;">
+                                    <a style="font-size: 15px; font-weight: 500; color: black;">
+                                        Paid
+                                    </a>
+                                    <br>
+                                </div>
+                                <div style="float: right; margin-right: 20px;">
+                                    <a style="font-size: 15px; font-weight: 500; color: black;">
+                                        $paid
+                                    </a>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <hr>
+                        <div style="margin-top: 20px;">
+                            <div style="float: left; width: 400px;">
+
+                            </div>
+                            <div style="float: right; width: 350px;">
+                                <div style="float: left;">
+                                    <a style="font-size: 15px; font-weight: 500; color: black;">
+                                        Due
+                                    </a>
+                                    <br>
+                                </div>
+                                <div style="float: right; margin-right: 20px;">
+                                    <a style="font-size: 15px; font-weight: 500; color: black;">
+                                        $due
+                                    </a>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <hr>
+                        <div style="margin-left: 20px;">
+                            <a style="font-size: 15px; font-weight: 500; color: black;">
+                                Due In Word: $in_word_due  taka only
+                            </a>
+                        </div>
+                        <br>
+                        <hr>
+                        <br>
+                        """
         self.top = """
                 <!doctype html>
                 <html>
@@ -3867,22 +3921,20 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
                                     </a>
                                 </div>
                             </div>
-                        </div>
-                        <div style="margin-top: 140px;">
-                        </div>
-                        <hr>
-                        <div style="text-align: left;">
-                            <a style="font-size: 15px; font-weight: 500; color: black;">
-                                N.B: This is a computer generated document and is valid if not signed.
-                            </a>
-                        </div>
-                    </div>
-
-
-                    <script src="https://www.exontime.com/static/home/js/bootstrap.js"></script>
+                            </div>
+                            <div style="margin-top: 140px;">
+                            </div>
+                            <hr>
+                            <div style="text-align: left;">
+                                <a style="font-size: 15px; font-weight: 500; color: black;">
+                                    N.B: This is a computer generated document and is valid if not signed.
+                                </a>
+                            </div>
+                      </div>
+                      <script src="$js_url"></script>
                 </body>
                 </html>
-                """
+        """
         self.refresh = True
         self.saved_data1 = []
         self.saved_data2 = []
@@ -3891,6 +3943,8 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
         self.new_created1 = []
         self.new_created2 = []
         self.new_created3 = False
+        self.prevSpend = 0.0
+        self.new_created = False
         self.invoice_id.currentTextChanged.connect(self.inactive)
 
     def inactive(self):
@@ -3960,6 +4014,10 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
             yy = yy + 1
 
         prev_total = float(self.save_data["sub total"])
+        prev_discount = float(self.save_data["discount"])
+        prev_paid = float(self.save_data["paid"])
+        self.paid = self.paidSpinBox.value()
+        self.discount = self.discountSpinBox.value()
         self.save_data["invoice id"] = self.invoice_id.currentText()
         self.save_data["customer id"] = self.entry_customer_id_combo.currentText()
         self.save_data["address"] = self.entry_address_line_edit.text()
@@ -3989,14 +4047,20 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
         bal_b = self.df2[self.df2["company name"] == self.entry_customer_id_combo.currentText()]["opening balance"]
         bal_b = list(bal_b)
         bal_b = float(bal_b[0])
-        total_due = bal_b + self.sub_total_amount - prev_total
-        words = p.number_to_words(int(self.sub_total_amount))
-        table_bottom = Template(self.table_bottom).safe_substitute(sub_total="{:.2f}".format(self.sub_total_amount),
-                                                                   discount_percent="0.0", discount="0.00",
-                                                                   after_discount="{:.2f}".format(self.sub_total_amount),
-                                                                   tax_percent="0.0", tax_amount="0.00",
-                                                                   total="{:.2f}".format(self.sub_total_amount),
-                                                                   in_word=words)
+        total_due = bal_b + self.sub_total_amount - prev_total - self.paid - self.discount + prev_paid + prev_discount
+        words = p.number_to_words(int(self.sub_total_amount - self.discount))
+        words_due = p.number_to_words(int(self.sub_total_amount - self.discount - self.paid))
+        discount_perc = (self.discount / self.sub_total_amount) * 100
+        table_bottom = Template(self.table_bottom).safe_substitute(
+            sub_total="{:.2f}".format(self.sub_total_amount),
+            discount_percent="{:.2f}".format(discount_perc), discount="{:.2f}".format(self.discount),
+            after_discount="{:.2f}".format(self.sub_total_amount - self.discount),
+            tax_percent="0.0", tax_amount="0.00",
+            total="{:.2f}".format(self.sub_total_amount - self.discount),
+            in_word=words,
+            paid=str(self.paid),
+            due=str(self.sub_total_amount - self.discount - self.paid),
+            in_word_due=words_due)
         top = Template(self.top).safe_substitute(css_link=bootstrap_css_url, logo_png=logo_url, dimension_png=dimension_url,
                                                  invoice_id=self.save_data["invoice id"],
                                                  client=company_name, address=self.save_data["address"],
@@ -4044,6 +4108,10 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
 
     def save_after_print(self, prev_total):
         #prev_total = float(self.save_data["sub total"])
+        prev_discount = float(self.save_data["discount"])
+        prev_paid = float(self.save_data["paid"])
+        self.paid = self.paidSpinBox.value()
+        self.discount = self.discountSpinBox.value()
         self.save_data["invoice id"] = self.invoice_id.currentText()
         self.save_data["customer id"] = self.entry_customer_id_combo.currentText()
         self.save_data["address"] = self.entry_address_line_edit.text()
@@ -4053,6 +4121,8 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
         self.save_data["delivery date"] = str(self.delivery_date.date().toPyDate())
         self.save_data["products"] = self.products_dict_final
         self.save_data["sub total"] = self.sub_total_amount
+        self.save_data["paid"] = self.paid
+        self.save_data["discount"] = self.discount
         company_name = self.entry_customer_id_combo.currentText()
         email = self.df2[self.df2["company name"] == self.entry_customer_id_combo.currentText()]["email"]
         email = list(email)
@@ -4169,19 +4239,39 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
                         else:
                             prev_spend = self.saved_data3
                         if not self.new_created3:
-                            new_spend = prev_spend + float(self.sub_total_amount) - prev_total
+                            new_spend = prev_spend + float(self.sub_total_amount) - prev_total - self.discount
                         else:
-                            new_spend = float(self.sub_total_amount) - prev_total
+                            new_spend = float(self.sub_total_amount) - prev_total - self.discount
                         db.child("customer spend").child(c_id).child("spent amount").set(new_spend)
                     else:
                         db.child("customer spend").child(c_id).child("spent amount").set(self.sub_total_amount)
-                        self.saved_data3 = self.sub_total_amount
+                        self.saved_data3 = self.sub_total_amount - self.discount
                         self.new_created3 = True
+
+                    if "customer spend" in list(db.shallow().get().val()) and c_id in list(
+                            db.child("customer spend").shallow().get().val()) and "paid" in list(
+                        db.child("customer spend").child(c_id).shallow().get().val()):
+                        if self.refresh:
+                            prev_spend = float(db.child("customer spend").child(c_id).child("paid").get().val())
+                            self.prevSpend = prev_spend
+                        else:
+                            prev_spend = self.prevSpend
+                        if not self.new_created:
+                            new_spend = prev_spend + self.paid - prev_paid
+                        else:
+                            new_spend = self.paid - prev_paid
+                        db.child("customer spend").child(c_id).child("paid").set(new_spend)
+                        # self.new_created = False
+                    else:
+                        new_spend = self.paid - prev_paid
+                        self.prevSpend = new_spend
+                        db.child("customer spend").child(c_id).child("paid").set(new_spend)
+                        self.new_created = True
 
                     bal_b = self.df2[self.df2["company name"] == self.entry_customer_id_combo.currentText()]["opening balance"]
                     bal_b = list(bal_b)
                     bal_b = float(bal_b[0])
-                    bal_a = bal_b + float(self.sub_total_amount) - prev_total
+                    bal_a = bal_b + self.sub_total_amount - prev_total - self.paid - self.discount + prev_discount + prev_paid
                     db.child('customer').child(customerId).child('opening balance').set(bal_a)
                     self.refresh = False
                     try:
@@ -4190,7 +4280,7 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
                         recipientNumber = recipientNumber[0]
                         or_id = self.save_data["invoice id"]
                         d_date = self.save_data["delivery date"]
-                        bill = '{:.2f}'.format(self.sub_total_amount)
+                        bill = '{:.2f}'.format(self.sub_total_amount - self.discount)
                         smsText = f"Your order {or_id} has been updated. Total bill amount is {bill} taka and estimated delivery date is {d_date}."
                         client.service.OneToOne(userName, password, recipientNumber, smsText, smsType, maskName, campaignName)
                         #bill = '{:.2f}'.format(bal_a)
@@ -4244,6 +4334,10 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
                 yy = yy + 1
 
             prev_total = float(self.save_data["sub total"])
+            prev_discount = float(self.save_data["discount"])
+            prev_paid = float(self.save_data["paid"])
+            self.discount = self.discountSpinBox.value()
+            self.paid = self.paidSpinBox.value()
             self.save_data["invoice id"] = self.invoice_id.currentText()
             self.save_data["customer id"] = self.entry_customer_id_combo.currentText()
             self.save_data["address"] = self.entry_address_line_edit.text()
@@ -4376,27 +4470,52 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
                         else:
                             prev_spend = self.saved_data3
                         if not self.new_created3:
-                            new_spend = prev_spend + float(self.sub_total_amount) - prev_total
+                            new_spend = prev_spend + float(self.sub_total_amount) - prev_total - self.discount
                         else:
-                            new_spend = float(self.sub_total_amount) - prev_total
+                            new_spend = float(self.sub_total_amount) - prev_total - self.discount
                         db.child("customer spend").child(c_id).child("spent amount").set(new_spend)
                     else:
                         db.child("customer spend").child(c_id).child("spent amount").set(self.sub_total_amount)
-                        self.saved_data3 = self.sub_total_amount
+                        self.saved_data3 = self.sub_total_amount - self.discount
                         self.new_created3 = True
+
+                    if "customer spend" in list(db.shallow().get().val()) and c_id in list(
+                            db.child("customer spend").shallow().get().val()) and "paid" in list(
+                        db.child("customer spend").child(c_id).shallow().get().val()):
+                        if self.refresh:
+                            prev_spend = float(db.child("customer spend").child(c_id).child("paid").get().val())
+                            self.prevSpend = prev_spend
+                        else:
+                            prev_spend = self.prevSpend
+                        if not self.new_created:
+                            new_spend = prev_spend + self.paid - prev_paid
+                        else:
+                            new_spend = self.paid - prev_paid
+                        db.child("customer spend").child(c_id).child("paid").set(new_spend)
+                        # self.new_created = False
+                    else:
+                        new_spend = self.paid - prev_paid
+                        self.prevSpend = new_spend
+                        db.child("customer spend").child(c_id).child("paid").set(new_spend)
+                        self.new_created = True
                     bal_b = self.df2[self.df2["company name"] == self.entry_customer_id_combo.currentText()][
                         "opening balance"]
                     bal_b = list(bal_b)
                     bal_b = float(bal_b[0])
-                    total_due = bal_b + self.sub_total_amount - prev_total
-                    words = p.number_to_words(int(self.sub_total_amount))
+                    total_due = bal_b + self.sub_total_amount - prev_total - self.paid - self.discount + prev_discount + prev_paid
+                    words = p.number_to_words(int(self.sub_total_amount - self.discount))
+                    words_due = p.number_to_words(int(self.sub_total_amount - self.discount - self.paid))
+                    discount_perc = (self.discount / self.sub_total_amount) * 100
                     table_bottom = Template(self.table_bottom).safe_substitute(
                         sub_total="{:.2f}".format(self.sub_total_amount),
-                        discount_percent="0.0", discount="0.00",
-                        after_discount="{:.2f}".format(self.sub_total_amount),
+                        discount_percent="{:.2f}".format(discount_perc), discount="{:.2f}".format(self.discount),
+                        after_discount="{:.2f}".format(self.sub_total_amount  - self.discount),
                         tax_percent="0.0", tax_amount="0.00",
-                        total="{:.2f}".format(self.sub_total_amount),
-                        in_word=words)
+                        total="{:.2f}".format(self.sub_total_amount - self.discount),
+                        in_word=words,
+                        paid=str(self.paid),
+                        due=str(self.sub_total_amount - self.discount - self.paid),
+                        in_word_due=words_due)
                     top = Template(self.top).safe_substitute(css_link=bootstrap_css_url, logo_png=logo_url, dimension_png=dimension_url,
                                                              invoice_id=self.save_data["invoice id"],
                                                              client=company_name, address=self.save_data["address"],
@@ -4408,7 +4527,7 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
                     bottom = Template(self.bottom).safe_substitute(js_link=bootstrap_js_url)
                     html = top + self.table_top + self.tb_row + table_bottom + bottom
                     self.save_file(html)
-                    bal_a = bal_b + float(self.sub_total_amount) - prev_total
+                    bal_a = bal_b + self.sub_total_amount - prev_total - self.paid - self.discount + prev_discount + prev_paid
                     db.child('customer').child(customerId).child('opening balance').set(bal_a)
                     self.refresh = False
                     try:
@@ -4417,7 +4536,7 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
                         recipientNumber = recipientNumber[0]
                         or_id = self.save_data["invoice id"]
                         d_date = self.save_data["delivery date"]
-                        bill = '{:.2f}'.format(self.sub_total_amount)
+                        bill = '{:.2f}'.format(self.sub_total_amount - self.discount)
                         smsText = f"Your order {or_id} has been updated. Total bill amount is {bill} taka and estimated delivery date is {d_date}."
                         client.service.OneToOne(userName, password, recipientNumber, smsText, smsType, maskName, campaignName)
                         #bill = '{:.2f}'.format(bal_a)
@@ -4553,6 +4672,8 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
         self.save_data = {}
         self.old_product_dict = {}
         self.products_dict_final = {}
+        self.prevSpend = 0.0
+        self.new_created = False
         try:
             try:
                 self.dat = db.child('product').get().val()
@@ -4680,6 +4801,8 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
             self.entry_address_line_edit.setText(self.save_data['address'])
             self.entry_location_line_edit.setText(self.save_data['location'])
             self.entry_employee_name_combo.setCurrentText(self.save_data['employee name'])
+            self.paidSpinBox.setValue(self.save_data['paid'])
+            self.discountSpinBox.setValue(self.save_data['discount'])
             format_str = '%Y-%m-%d'
             datetime_book = datetime.datetime.strptime(self.save_data['booking date'], format_str)
             # qtDate_book = QtCore.QDate.fromString(datetime_book, 'yyyy-MM-dd')
@@ -4687,6 +4810,7 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
             # qtDate_delivery = QtCore.QDate.fromString(datetime_delivery, 'yyyy-MM-dd')
             self.booking_date.setDateTime(datetime_book)
             self.delivery_date.setDateTime(datetime_delivery)
+
             for product in self.products_dict:
                 self.entry_table.setRowCount(self.row_count)
                 row = self.row_count - 1
