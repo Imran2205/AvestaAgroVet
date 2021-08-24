@@ -13,24 +13,57 @@
   <property name="windowTitle">
    <string>Login</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="4" column="1">
-     <widget class="QPushButton" name="LoginButton">
-      <property name="text">
-       <string>Login</string>
+    <item row="5" column="0">
+     <widget class="QPushButton" name="RegisterButton">
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	background-color: #ddd;
+	border: 1px solid #aaa;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+	border-radius: 4px;
+}
+
+QPushButton:hover {   
+	background-color: #bbf;
+	border: 1px solid #000;
+	color: #fff;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+	border-radius: 4px;
+}
+
+</string>
       </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="PassLabel">
       <property name="text">
-       <string>Password*</string>
+       <string>Register</string>
       </property>
      </widget>
     </item>
     <item row="2" column="0">
      <widget class="QLabel" name="EmailLabel">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	background-color: transparent;
+	color: #333;
+	font-family: 'Arvo';
+	font-size: 14px;
+	font-weight: 400;
+	padding: 2px 0px;
+}
+
+</string>
+      </property>
       <property name="text">
        <string>Email*</string>
       </property>
@@ -38,20 +71,132 @@
     </item>
     <item row="3" column="1">
      <widget class="QLineEdit" name="PassLine">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit{
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #aaa;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+}
+
+QLineEdit:hover {   
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #000;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+}
+</string>
+      </property>
       <property name="echoMode">
        <enum>QLineEdit::Password</enum>
       </property>
      </widget>
     </item>
-    <item row="4" column="0">
-     <widget class="QPushButton" name="RegisterButton">
+    <item row="3" column="0">
+     <widget class="QLabel" name="PassLabel">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	background-color: transparent;
+	color: #333;
+	font-family: 'Arvo';
+	font-size: 14px;
+	font-weight: 400;
+	padding: 2px 0px;
+}
+
+</string>
+      </property>
       <property name="text">
-       <string>Register</string>
+       <string>Password*</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QCheckBox" name="checkBox_remember_me">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	background-color: transparent;
+	color: #333;
+	font-family: 'Arvo';
+	font-size: 14px;
+	font-weight: 400;
+	padding: 2px 0px;
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Remember Me</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QPushButton" name="LoginButton">
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	background-color: #ddd;
+	border: 1px solid #aaa;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+	border-radius: 4px;
+}
+
+QPushButton:hover {   
+	background-color: #bbf;
+	border: 1px solid #000;
+	color: #fff;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+	border-radius: 4px;
+}
+
+</string>
+      </property>
+      <property name="text">
+       <string>Login</string>
       </property>
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QLineEdit" name="EmailLine"/>
+     <widget class="QLineEdit" name="EmailLine">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit{
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #aaa;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+}
+
+QLineEdit:hover {   
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #000;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+}
+</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

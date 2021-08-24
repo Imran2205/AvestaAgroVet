@@ -50,7 +50,12 @@ maskName = ''
 campaignName = ''
 
 file_save_path = os.environ['USERPROFILE']
-file_save_path = os.path.join(file_save_path, 'Documents')
+file_save_path = os.path.join(file_save_path, 'Documents/Machronics')
+
+user_info_file_loc = os.path.join(file_save_path, 'user_info')
+
+if not os.path.exists(user_info_file_loc):
+    os.makedirs(user_info_file_loc)
 
 pyrebase_config = {
     "apiKey": "AIzaSyBvljDPKu0_BVYX6xMouGyHOmKWuF2ILzI",
@@ -63,6 +68,17 @@ pyrebase_config = {
     "measurementId": "G-MPZBC9W4S1"
 }
 
+"""pyrebase_config = {
+    "apiKey": "AIzaSyDnsamd4Uw_rnxKUSpkeNrdWnvbba33nP4",
+    "authDomain": "avesta-agro-vet.firebaseapp.com",
+    "databaseURL": "https://avesta-agro-vet.firebaseio.com",
+    "projectId": "avesta-agro-vet6",
+    "storageBucket": "avesta-agro-vet.appspot.com",
+    "messagingSenderId": "337955644180",
+    "appId": "1:337955644180:web:30509098a437d829105801",
+    "measurementId": "G-FJM592PW9B"
+}"""
+
 firebase = pyrebase.initialize_app(pyrebase_config)
 auth = firebase.auth()
 db = firebase.database()
@@ -71,6 +87,10 @@ logo_url = storage.child("images/logo.png").get_url(token = 'e90eab02-dccd-45da-
 dimension_url = storage.child("images/dimension.png").get_url(token = '1f2cabef-858b-4aea-b8f2-031bcda93592')
 bootstrap_css_url = storage.child("css/bootstrap.min.css").get_url(token = '2f1a976b-3120-4903-bacc-95f6c58bce7b')
 bootstrap_js_url = storage.child("js/bootstrap.js").get_url(token = '412e8637-4ea4-4c36-ac3b-abddb086b069')
+"""logo_url = storage.child("images/logo.png").get_url(token = '22337852-5675-4e63-80ca-ec99fa70c6f2')
+dimension_url = storage.child("images/dimension.png").get_url(token = '6f49902f-e5d8-4a0d-b52d-d8cafc3d9840')
+bootstrap_css_url = storage.child("css/bootstrap.min.css").get_url(token = '2f8de675-f2f6-4583-83a1-ed767a58255b')
+bootstrap_js_url = storage.child("js/bootstrap.js").get_url(token = '9a3a5e4e-3274-49f8-8bc5-a9ffe0f117df')"""
 product_id_starting_number = 10000
 customer_id_start = 100300500
 supplier_id_start = 10030500
@@ -201,6 +221,16 @@ class MainUIClass(QTabWidget, main_ui.Ui_TabWidget):
         self.cr.clicked.connect(self.customer_report)
         self.sd.clicked.connect(self.sales_detail)
         self.mrd.clicked.connect(self.money_received_detail)
+        self.pushButton_logout.clicked.connect(self.logout)
+
+    def logout(self):
+        auth.current_user = None
+        file_location = os.path.join(user_info_file_loc, 'login_info.info')
+        if os.path.exists(file_location):
+            os.remove(file_location)
+        #controller = Controller
+        #controller.show_login()
+        self.close()
 
     def money_received_detail(self):
         self.money_receivecd_detail_ui.show_me()
@@ -282,16 +312,16 @@ class SalesDetailUI(QMainWindow, sales_detail_ui.Ui_MainWindow):
         self.create_table()
         try:
             self.dat = db.child('invoice').get().val()
-            print(self.dat)
+            #print(self.dat)
             self.df = pd.DataFrame(self.dat, columns=self.dat.keys())
             self.df = self.df.transpose()
-            print(self.df)
+            #print(self.df)
             """self.dat2 = db.child('customer spend').get().val()
             self.df2 = pd.DataFrame(self.dat2, columns=self.dat2.keys())
             self.df2 = self.df2.transpose()
             self.df = pd.concat([self.df, self.df2], axis=1, sort=False)"""
             ids = list(self.df['invoice id'].values)
-            print(ids)
+            #print(ids)
             for id_ in ids:
                 if id_ is not None:
                     self.table.setRowCount(self.row_count)
@@ -2554,7 +2584,7 @@ class SaleEntryUIClass(QMainWindow, entry_sale.Ui_MainWindow):
                             <br>
                             <br>
                             <a style="font-size: 15px; font-weight: 500; color: black;">
-                                Total Due: $due
+                                $due
                             </a>
                         </div>
                     </div>
@@ -2712,9 +2742,10 @@ class SaleEntryUIClass(QMainWindow, entry_sale.Ui_MainWindow):
                                                  client=company_name, address=self.save_data["address"],
                                                  zone = self.save_data["location"],
                                                  sales_by = self.save_data["employee name"],
-                                                 due = "{:.2f}".format(total_due),
+                                                 due="",
                                                  order_date=self.save_data["booking date"],
                                                  delivery_date=self.save_data["delivery date"])
+        #due = "{:.2f}".format(total_due),
         bottom = Template(self.bottom).safe_substitute(js_link = bootstrap_js_url)
         html = top + self.table_top + self.tb_row + table_bottom + bottom
         self.save_file(html)
@@ -3204,9 +3235,10 @@ class SaleEntryUIClass(QMainWindow, entry_sale.Ui_MainWindow):
                                                              client=company_name, address=self.save_data["address"],
                                                              zone=self.save_data["location"],
                                                              sales_by=self.save_data["employee name"],
-                                                             due="{:.2f}".format(total_due),
+                                                             due="",
                                                              order_date=self.save_data["booking date"],
                                                              delivery_date=self.save_data["delivery date"])
+                    #due="{:.2f}".format(total_due),
                     bottom = Template(self.bottom).safe_substitute(js_link=bootstrap_js_url)
                     html = top + self.table_top + self.tb_row + table_bottom + bottom
                     self.save_file(html)
@@ -3461,6 +3493,9 @@ class SaleEntryUIClass(QMainWindow, entry_sale.Ui_MainWindow):
             self.entry_employee_name_combo.clear()
             for x in range(len(_data__1)):
                 self.entry_employee_name_combo.addItem(_data__1[x] + " " +  _data__2[x])
+            first_name = db.child('user').child(auth.current_user['localId']).child('first name').get().val()
+            last_name = db.child('user').child(auth.current_user['localId']).child('last name').get().val()
+            self.entry_employee_name_combo.setCurrentText(first_name + " " +  last_name)
             self.refresh = True
             self.saved_data1 = []
             self.saved_data2 = []
@@ -3901,7 +3936,7 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
                                     <br>
                                     <br>
                                     <a style="font-size: 15px; font-weight: 500; color: black;">
-                                        Total Due: $due
+                                        $due
                                     </a>
                                 </div>
                             </div>
@@ -4066,16 +4101,17 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
                                                  client=company_name, address=self.save_data["address"],
                                                  zone=self.save_data["location"],
                                                  sales_by=self.save_data["employee name"],
-                                                 due="{:.2f}".format(total_due),
+                                                 due="",
                                                  order_date=self.save_data["booking date"],
                                                  delivery_date=self.save_data["delivery date"])
+        #due="{:.2f}".format(total_due),
         bottom = Template(self.bottom).safe_substitute(js_link=bootstrap_js_url)
         html = top + self.table_top + self.tb_row + table_bottom + bottom
         self.save_file(html)
         path = r"{}".format(self.save_location)
         url = bytearray(QUrl.fromLocalFile(path).toEncoded()).decode()
         QDesktopServices.openUrl(QUrl(url))
-        QTimer.singleShot(500, lambda: self.save_after_print(prev_total))
+        QTimer.singleShot(500, lambda: self.save_after_print(prev_total, prev_discount, prev_paid))
 
         #self.clear_n_new()
         #if is_correct:
@@ -4106,10 +4142,15 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
     def printPreview(self, printer):
         self.textEdit.print_(printer)"""
 
-    def save_after_print(self, prev_total):
+    def save_after_print(self, prev_total, prev_discount, prev_paid):
         #prev_total = float(self.save_data["sub total"])
-        prev_discount = float(self.save_data["discount"])
-        prev_paid = float(self.save_data["paid"])
+        #print(prev_total)
+        #print(prev_discount)
+        #print(prev_paid)
+        #prev_discount = float(self.save_data["discount"])
+        #prev_paid = float(self.save_data["paid"])
+        prev_discount = float(prev_discount)
+        prev_paid = float(prev_paid)
         self.paid = self.paidSpinBox.value()
         self.discount = self.discountSpinBox.value()
         self.save_data["invoice id"] = self.invoice_id.currentText()
@@ -4521,9 +4562,10 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
                                                              client=company_name, address=self.save_data["address"],
                                                              zone=self.save_data["location"],
                                                              sales_by=self.save_data["employee name"],
-                                                             due="{:.2f}".format(total_due),
+                                                             due="",
                                                              order_date=self.save_data["booking date"],
                                                              delivery_date=self.save_data["delivery date"])
+                    #due="{:.2f}".format(total_due),
                     bottom = Template(self.bottom).safe_substitute(js_link=bootstrap_js_url)
                     html = top + self.table_top + self.tb_row + table_bottom + bottom
                     self.save_file(html)
@@ -4674,6 +4716,8 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
         self.products_dict_final = {}
         self.prevSpend = 0.0
         self.new_created = False
+        self.discount = 0
+        self.paid = 0
         try:
             try:
                 self.dat = db.child('product').get().val()
@@ -4743,6 +4787,9 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
             self.entry_employee_name_combo.clear()
             for x in range(len(_data__1)):
                 self.entry_employee_name_combo.addItem(_data__1[x] + " " +  _data__2[x])
+            first_name = db.child('user').child(auth.current_user['localId']).child('first name').get().val()
+            last_name = db.child('user').child(auth.current_user['localId']).child('last name').get().val()
+            self.entry_employee_name_combo.setCurrentText(first_name + " " + last_name)
             self.refresh = True
             self.saved_data1 = []
             self.saved_data2 = []
@@ -4758,6 +4805,7 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
             self.dialog.displayInfo()
 
     def edit(self):
+        #self.clear_n_new()
         self.save_n_new_btn.setEnabled(True)
         self.save_n_exit_btn.setEnabled(True)
         self.print_btn.setEnabled(True)
@@ -4770,8 +4818,25 @@ class UpdateSaleEntryUIClass(QMainWindow, update_entry_sale.Ui_MainWindow):
         self.save_data = {}
         self.old_product_dict = {}
         self.products_dict_final = {}
+        self.discount = 0
+        self.paid = 0
+        self.sub_total_amount = 0
+        self.prevSpend = 0
+        try:
+            self.dat = db.child('product').get().val()
+            self.df = pd.DataFrame(self.dat, columns=self.dat.keys())
+            self.df = self.df.transpose()
+            self.dat2 = db.child('customer').get().val()
+            self.df2 = pd.DataFrame(self.dat2, columns=self.dat2.keys())
+            self.df2 = self.df2.transpose()
+        except Exception as e:
+            self.df2 = pd.DataFrame()
+            self.df = pd.DataFrame()
+            self.dialog.message_text.setText("Can not load data. Check internet connection")
+            self.dialog.displayInfo()
         try:
             self.save_data = dict(db.child('invoice').child(self.invoice_id.currentText()).get().val())
+            #print(self.save_data)
             i_id = self.invoice_id.currentText()
             #dirr = os.getcwd()
             dirr = file_save_path
@@ -4966,6 +5031,10 @@ class LoginUIClass(QMainWindow, login.Ui_MainWindow):
             user = auth.sign_in_with_email_and_password(email,password)
             access = db.child('user').child(user['localId']).child('staff').get().val()
             if access:
+                if self.checkBox_remember_me.isChecked():
+                    file_loc = os.path.join(user_info_file_loc, 'login_info.info')
+                    with open(file_loc, 'w') as f:
+                        f.write(f'{email},{password},end')
                 self.switch_window.emit("Logged in")
             else:
                 self.dialog.message_text.setText("you do not have permission to login")
@@ -5017,10 +5086,25 @@ class Controller:
         self.window.close()
         self.window_two.show()
 
+    def show_window_main_direct(self):
+        self.window_two = MainUIClass()
+        self.window_two.show()
+
 def main():
     app = QtWidgets.QApplication(sys.argv)
     controller = Controller()
-    controller.show_login()
+    file_location = os.path.join(user_info_file_loc, 'login_info.info')
+    if os.path.exists(file_location):
+        with open(file_location, 'r') as f:
+            data = f.readlines()[0].split(',')
+            email = data[0]
+            pass_w = data[1]
+            user = auth.sign_in_with_email_and_password(email, pass_w)
+            access = db.child('user').child(user['localId']).child('staff').get().val()
+            if access:
+                controller.show_window_main_direct()
+    else:
+        controller.show_login()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':

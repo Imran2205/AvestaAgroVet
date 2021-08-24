@@ -33,6 +33,18 @@
     </item>
     <item row="2" column="7">
      <widget class="QLabel" name="label_7">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	background-color: transparent;
+	color: #333;
+	font-family: 'Arvo';
+	font-size: 14px;
+	font-weight: 400;
+	padding: 2px 0px;
+}
+
+</string>
+      </property>
       <property name="text">
        <string>Delivery Date</string>
       </property>
@@ -40,6 +52,18 @@
     </item>
     <item row="6" column="7">
      <widget class="QLabel" name="sub_total">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	background-color: transparent;
+	color: #333;
+	font-family: 'Arvo';
+	font-size: 14px;
+	font-weight: 400;
+	padding: 2px 0px;
+}
+
+</string>
+      </property>
       <property name="text">
        <string>0.00</string>
       </property>
@@ -47,6 +71,18 @@
     </item>
     <item row="2" column="1">
      <widget class="QLabel" name="label_3">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	background-color: transparent;
+	color: #333;
+	font-family: 'Arvo';
+	font-size: 14px;
+	font-weight: 400;
+	padding: 2px 0px;
+}
+
+</string>
+      </property>
       <property name="text">
        <string>Address</string>
       </property>
@@ -54,16 +90,68 @@
     </item>
     <item row="0" column="7">
      <widget class="QLabel" name="label_5">
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	background-color: transparent;
+	color: #333;
+	font-family: 'Arvo';
+	font-size: 14px;
+	font-weight: 400;
+	padding: 2px 0px;
+}
+
+</string>
+      </property>
       <property name="text">
        <string>Employee Name</string>
       </property>
      </widget>
     </item>
     <item row="3" column="2" colspan="3">
-     <widget class="QLineEdit" name="entry_location_line_edit"/>
+     <widget class="QLineEdit" name="entry_location_line_edit">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit{
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #aaa;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+}
+
+QLineEdit:hover {   
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #000;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+}
+</string>
+      </property>
+     </widget>
     </item>
     <item row="6" column="6">
      <widget class="QLabel" name="label_8">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	background-color: transparent;
+	color: #333;
+	font-family: 'Arvo';
+	font-size: 14px;
+	font-weight: 400;
+	padding: 2px 0px;
+}
+
+</string>
+      </property>
       <property name="text">
        <string>Sub Total</string>
       </property>
@@ -84,13 +172,50 @@
     </item>
     <item row="1" column="7">
      <widget class="QLabel" name="label_6">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	background-color: transparent;
+	color: #333;
+	font-family: 'Arvo';
+	font-size: 14px;
+	font-weight: 400;
+	padding: 2px 0px;
+}
+
+</string>
+      </property>
       <property name="text">
        <string>Booking Date</string>
       </property>
      </widget>
     </item>
     <item row="0" column="2" colspan="2">
-     <widget class="QLineEdit" name="entry_invoice_id_line_edit"/>
+     <widget class="QLineEdit" name="entry_invoice_id_line_edit">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit{
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #aaa;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+}
+
+QLineEdit:hover {   
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #000;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+}
+</string>
+      </property>
+     </widget>
     </item>
     <item row="0" column="0">
      <spacer name="horizontalSpacer_3">
@@ -110,6 +235,18 @@
     </item>
     <item row="3" column="1">
      <widget class="QLabel" name="label_4">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	background-color: transparent;
+	color: #333;
+	font-family: 'Arvo';
+	font-size: 14px;
+	font-weight: 400;
+	padding: 2px 0px;
+}
+
+</string>
+      </property>
       <property name="text">
        <string>Location</string>
       </property>
@@ -129,10 +266,47 @@
      </spacer>
     </item>
     <item row="2" column="2" colspan="3">
-     <widget class="QLineEdit" name="entry_address_line_edit"/>
+     <widget class="QLineEdit" name="entry_address_line_edit">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit{
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #aaa;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+}
+
+QLineEdit:hover {   
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #000;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+}
+</string>
+      </property>
+     </widget>
     </item>
     <item row="0" column="1">
      <widget class="QLabel" name="label">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	background-color: transparent;
+	color: #333;
+	font-family: 'Arvo';
+	font-size: 14px;
+	font-weight: 400;
+	padding: 2px 0px;
+}
+
+</string>
+      </property>
       <property name="text">
        <string>Invoice ID</string>
       </property>
@@ -140,6 +314,30 @@
     </item>
     <item row="6" column="10">
      <widget class="QPushButton" name="print_btn">
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	background-color: #ddd;
+	border: 1px solid #aaa;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+	border-radius: 4px;
+}
+
+QPushButton:hover {   
+	background-color: #bbf;
+	border: 1px solid #000;
+	color: #fff;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+	border-radius: 4px;
+}
+</string>
+      </property>
       <property name="text">
        <string>Print</string>
       </property>
@@ -160,6 +358,30 @@
     </item>
     <item row="6" column="2" colspan="3">
      <widget class="QPushButton" name="save_n_new_btn">
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	background-color: #ddd;
+	border: 1px solid #aaa;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+	border-radius: 4px;
+}
+
+QPushButton:hover {   
+	background-color: #bbf;
+	border: 1px solid #000;
+	color: #fff;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+	border-radius: 4px;
+}
+</string>
+      </property>
       <property name="text">
        <string>Save and New</string>
       </property>
@@ -167,6 +389,30 @@
     </item>
     <item row="6" column="1">
      <widget class="QPushButton" name="save_btn">
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	background-color: #ddd;
+	border: 1px solid #aaa;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+	border-radius: 4px;
+}
+
+QPushButton:hover {   
+	background-color: #bbf;
+	border: 1px solid #000;
+	color: #fff;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+	border-radius: 4px;
+}
+</string>
+      </property>
       <property name="text">
        <string>Save</string>
       </property>
@@ -174,6 +420,18 @@
     </item>
     <item row="1" column="1">
      <widget class="QLabel" name="label_2">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	background-color: transparent;
+	color: #333;
+	font-family: 'Arvo';
+	font-size: 14px;
+	font-weight: 400;
+	padding: 2px 0px;
+}
+
+</string>
+      </property>
       <property name="text">
        <string>Customer ID</string>
       </property>
@@ -181,6 +439,30 @@
     </item>
     <item row="6" column="9">
      <widget class="QPushButton" name="save_n_exit_btn">
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	background-color: #ddd;
+	border: 1px solid #aaa;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+	border-radius: 4px;
+}
+
+QPushButton:hover {   
+	background-color: #bbf;
+	border: 1px solid #000;
+	color: #fff;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+	border-radius: 4px;
+}
+</string>
+      </property>
       <property name="text">
        <string>Save and Exit</string>
       </property>
@@ -207,6 +489,18 @@
     </item>
     <item row="5" column="1">
      <widget class="QLabel" name="label_9">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	background-color: transparent;
+	color: #333;
+	font-family: 'Arvo';
+	font-size: 14px;
+	font-weight: 400;
+	padding: 2px 0px;
+}
+
+</string>
+      </property>
       <property name="text">
        <string>File Location</string>
       </property>
@@ -214,13 +508,62 @@
     </item>
     <item row="5" column="10">
      <widget class="QPushButton" name="select_location_btn">
+      <property name="styleSheet">
+       <string notr="true">QPushButton{
+	background-color: #ddd;
+	border: 1px solid #aaa;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+	border-radius: 4px;
+}
+
+QPushButton:hover {   
+	background-color: #bbf;
+	border: 1px solid #000;
+	color: #fff;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+	border-radius: 4px;
+}
+</string>
+      </property>
       <property name="text">
        <string>Select</string>
       </property>
      </widget>
     </item>
     <item row="5" column="2" colspan="8">
-     <widget class="QLineEdit" name="file_location_line_edit"/>
+     <widget class="QLineEdit" name="file_location_line_edit">
+      <property name="styleSheet">
+       <string notr="true">QLineEdit{
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #aaa;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+}
+
+QLineEdit:hover {   
+	background-color: transparent;
+	border: none;
+	border-bottom: 1px solid #000;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+}
+</string>
+      </property>
+     </widget>
     </item>
     <item row="4" column="1" colspan="7">
      <widget class="QFrame" name="frame">
@@ -243,6 +586,30 @@
        </item>
        <item row="0" column="3">
         <widget class="QPushButton" name="entry_add_btn">
+         <property name="styleSheet">
+          <string notr="true">QPushButton{
+	background-color: #ddd;
+	border: 1px solid #aaa;
+	color: #555;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+	border-radius: 4px;
+}
+
+QPushButton:hover {   
+	background-color: #bbf;
+	border: 1px solid #000;
+	color: #fff;
+	box-sizing: border-box;
+	font-family: 'Arvo';
+	font-size: 14px;
+	padding: 2px 0px;
+	border-radius: 4px;
+}
+</string>
+         </property>
          <property name="text">
           <string>ADD</string>
          </property>
@@ -261,8 +628,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>777</width>
-            <height>461</height>
+            <width>781</width>
+            <height>447</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
@@ -293,8 +660,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>385</width>
-         <height>510</height>
+         <width>381</width>
+         <height>496</height>
         </rect>
        </property>
       </widget>
@@ -311,6 +678,18 @@
     </item>
     <item row="3" column="7">
      <widget class="QLabel" name="label_10">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	background-color: transparent;
+	color: #333;
+	font-family: 'Arvo';
+	font-size: 14px;
+	font-weight: 400;
+	padding: 2px 0px;
+}
+
+</string>
+      </property>
       <property name="text">
        <string>Paid</string>
       </property>
@@ -318,6 +697,18 @@
     </item>
     <item row="3" column="9">
      <widget class="QLabel" name="label_11">
+      <property name="styleSheet">
+       <string notr="true">QLabel{
+	background-color: transparent;
+	color: #333;
+	font-family: 'Arvo';
+	font-size: 14px;
+	font-weight: 400;
+	padding: 2px 0px;
+}
+
+</string>
+      </property>
       <property name="text">
        <string>Discount</string>
       </property>
@@ -332,6 +723,9 @@
     </item>
     <item row="3" column="10">
      <widget class="QDoubleSpinBox" name="discountSpinBox">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <property name="maximum">
        <double>999999999999999921281879895665782741935503249059183851809998224123064148429897728.000000000000000</double>
       </property>

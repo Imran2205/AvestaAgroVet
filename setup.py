@@ -28,8 +28,8 @@ if sys.platform == 'win32':
 
 options = {
     'build_exe': {
-        'includes': ['atexit', 'os', 'cx_Freeze', 'httplib2', 'socks', 'gcloud', 'pyrebase'],
-        'include_files': ['dimension.png', 'logo.png', 'C:/Users/imran/AppData/Local/Programs/Python/Python39/DLLs/tk86t.dll', 'C:/Users/imran/AppData/Local/Programs/Python/Python39/DLLs/tcl86t.dll']
+        'includes': ['atexit', 'os', 'cx_Freeze', 'httplib2', 'socks', 'google', 'gcloud', 'pyrebase'],
+        'include_files': ['dimension.png', 'logo.png', 'C:/Users/imran/AppData/Local/Programs/Python/Python39/DLLs/tk86t.dll', 'C:/Users/imran/AppData/Local/Programs/Python/Python39/DLLs/tcl86t.dll'],
     }
 }
 

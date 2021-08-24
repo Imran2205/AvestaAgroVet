@@ -22,9 +22,9 @@ DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
-OutputDir=D:\desktop\AvestaAgroVet\build
+OutputDir=E:\desktop\AvestaAgroVet\build
 OutputBaseFilename=Machronics-setup
-SetupIconFile=D:\desktop\AvestaAgroVet\icon.ico
+SetupIconFile=E:\desktop\AvestaAgroVet\icon.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -36,8 +36,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "D:\desktop\AvestaAgroVet\build\Machronics\Machronics.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\desktop\AvestaAgroVet\build\Machronics\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "E:\desktop\AvestaAgroVet\build\Machronics\Machronics.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "E:\desktop\AvestaAgroVet\build\Machronics\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
